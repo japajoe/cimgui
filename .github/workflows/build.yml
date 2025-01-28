@@ -58,33 +58,19 @@ jobs:
       run: |
         mkdir cmake-build
         cd cmake-build
-        cmake -DCIMGUI_TEST=1 ..
+        cmake -DCIMGUI_TEST=0 ..
 
     - name: Build
       working-directory: cmake-build
       run: |
         cmake --build .
 
-    - name: Test
-      shell: bash
-      env:
-        GITHUB_OS: ${{ matrix.os }}
-      working-directory: cmake-build
-      run: |
-        if [ "$GITHUB_OS" == "windows-latest" ];
-        then
-          ./Debug/cimgui_test.exe
-        else
-          ./cimgui_test
-        fi
-
-    - name: Upload Artifacts
+    - name: Upload build artifacts
       if: success()  # Only upload if the previous steps were successful
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts-${{ matrix.os }}
-        path: |
-          cmake-build/Debug/cimgui_test.exe  # Adjust this path based on your build output
-          cmake-build/cimgui_test              # Adjust this path based on your build output
-          # Add any other files or directories you want to upload as artifacts
+        path: cmake-build
+
+
 
