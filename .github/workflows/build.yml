@@ -77,3 +77,14 @@ jobs:
         else
           ./cimgui_test
         fi
+
+    - name: Upload Artifacts
+      if: success()  # Only upload if the previous steps were successful
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifacts-${{ matrix.os }}
+        path: |
+          cmake-build/Debug/cimgui_test.exe  # Adjust this path based on your build output
+          cmake-build/cimgui_test              # Adjust this path based on your build output
+          # Add any other files or directories you want to upload as artifacts
+
