@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-20.04, macOS-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v1
@@ -24,7 +24,7 @@ jobs:
         if [ "$GITHUB_OS" == "macOS-latest" ];
         then
           brew install luajit
-        elif [ "$GITHUB_OS" == "ubuntu-latest" ];
+        elif [ "$GITHUB_OS" == "ubuntu-20.04" ];
         then
           sudo apt-get install -y luajit
         elif [ "$GITHUB_OS" == "windows-latest" ];
